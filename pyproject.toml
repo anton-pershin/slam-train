@@ -1,0 +1,47 @@
+[project]
+name = "slam-train"
+description = "SFT and training library"
+dynamic = ["version"]
+authors = [
+  {name = "Anton Pershin", email = "tony.pershin@gmail.com"},
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+dependencies = [
+  "hydra-core >= 1.3",
+]
+
+[build-system]
+requires = ["hatchling >= 1.26", "versioningit"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "versioningit"
+
+[tool.versioningit]
+default-version = "0.0.0"
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_third_party = "hydra, rally"
+
+[tool.pylint]
+max-line-length = 88
+min-similarity-lines = 12
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = [
+    "missing-docstring",      # Disable docstring requirements
+    "too-few-public-methods", # Allow classes with few methods
+    "too-many-arguments",
+    "too-many-positional-arguments",
+    "wrong-import-order",     # Already addressed by isort
+    "too-many-instance-attributes",
+    "too-many-locals",
+    "no-else-return",
+    "too-many-return-statements",
+]
+
+[tool.mypy]
+disable_error_code = ["import-untyped"]
