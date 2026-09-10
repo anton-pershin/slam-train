@@ -1,0 +1,26 @@
+defaults:
+  - _self_
+  - user_settings: user_settings
+  - hydra: base
+  - lora: default
+  - sft: default
+  - collection: merge_quality/merge_quality_easy
+
+project_path: ${user_settings.project_path}
+result_dir: ${user_settings.result_dir}
+hydra_root: ${user_settings.hydra_root}
+hydra_dir: ${user_settings.hydra_dir}
+dataset_root: ${user_settings.dataset_root}
+output_dir: ${user_settings.output_dir}
+slam_shared_config: ${oc.env:SLAM_SHARED_CONFIG,/path/to/slam/shared/config}
+
+base_model_path: ${user_settings.model_root}/qwen3-0.6b
+tokenizer_path: null  # defaults to base_model_path when null
+
+split:
+  train_ratio: 0.8
+  seed: 42
+
+hydra:
+  searchpath:
+    - file://${slam_shared_config}

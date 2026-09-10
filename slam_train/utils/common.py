@@ -12,4 +12,3 @@ def get_config_path() -> Path:
 
 def set_cuda_visible_devices(devices: list[int]) -> None:
     os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(map(str, devices))
-

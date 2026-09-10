@@ -8,12 +8,28 @@ authors = [
 readme = "README.md"
 requires-python = ">= 3.12"
 dependencies = [
+  # For local dev, override with: pip install -e ../slam-core
+  "slam-core @ git+https://github.com/anton-pershin/slam-core.git",
   "hydra-core >= 1.3",
+  "torch",
+  "transformers",
+  "datasets",
+  "trl >= 1.12",
+  "peft >= 0.20",
+  "accelerate",
 ]
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [build-system]
 requires = ["hatchling >= 1.26", "versioningit"]
 build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: slow end-to-end tests excluded from the default run",
+]
 
 [tool.hatch.version]
 source = "versioningit"
@@ -30,6 +46,22 @@ known_third_party = "hydra, rally"
 max-line-length = 88
 min-similarity-lines = 12
 
+[tool.pylint.'TESTS CONTROL']
+# Test-file messages that conflict with pytest idioms (fixtures shadow names,
+# importorskip requires top-level imports after it, configs have _target_).
+disable = [
+    "redefined-outer-name",
+    "unused-argument",
+    "wrong-import-position",
+    "protected-access",
+    "useless-parent-delegation",
+    "unused-import",
+    "import-outside-toplevel",
+    "missing-docstring",
+    "duplicate-code",
+    "unexpected-keyword-arg",  # pylint misresolves LlamaConfig kwargs
+]
+
 [tool.pylint.'MESSAGES CONTROL']
 disable = [
     "missing-docstring",      # Disable docstring requirements
@@ -41,6 +73,7 @@ disable = [
     "too-many-locals",
     "no-else-return",
     "too-many-return-statements",
+    "import-outside-toplevel",  # heavy libs (torch/transformers/peft/trl) are imported lazily
 ]
 
 [tool.mypy]
