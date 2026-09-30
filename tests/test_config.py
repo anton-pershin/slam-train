@@ -16,7 +16,7 @@ SLAM_EVAL_PATH = PROJECT_PATH.parent / "slam-eval"
 
 @pytest.fixture
 def shared_config_env(monkeypatch):
-    monkeypatch.setenv("SLAM_SHARED_CONFIG", str(SLAM_CORE_PATH / "config"))
+    monkeypatch.setenv("SLAM_SHARED_CONFIG_PATH", str(SLAM_CORE_PATH / "config"))
 
 
 class TestConfigTrainSft:

@@ -15,7 +15,7 @@ pip install -r requirements.txt
 # For local development against a local slam-core checkout:
 # pip install -e ../slam-core
 ```
-3. Set up `/config/user_settings/user_settings.yaml`
+3. Set up environment variables mentioned in `/config/user_settings/user_settings.yaml`
 4. Run the training script and override the corresponding config file in `/config/config_train_sft.yaml`
 ```bash
 python slam_train/scripts/train_sft.py
@@ -29,7 +29,7 @@ python slam_train/scripts/train_sft.py
 
 Runs LoRA supervised fine-tuning via `trl.SFTTrainer` on an eval case
 collection resolved from the shared slam config tree
-(`slam-core/config`, via `hydra.searchpath` and `SLAM_SHARED_CONFIG`).
+(`slam-core/config`, via `hydra.searchpath` and `SLAM_SHARED_CONFIG_PATH`).
 
 The collection is materialized in full, shuffled with a configured seed, and
 split into disjoint train/eval subsets by `split.train_ratio`. Training records
@@ -41,11 +41,12 @@ what `MergeQualityScorer.safe_parse_prediction` accepts at eval time.
 
 #### Configuration
 
-1. In `user_settings.yaml`, set up your paths:
-   ```yaml
-   model_root: /home/tony/models
-   dataset_root: /home/tony/datasets
-   project_path: /path/to/slam-train
+1. Set up environment variables (see `/config/user_settings/user_settings.yaml`):
+   ```bash
+   export SLAM_CORE_MODEL_PATH=/path/to/models
+   export SLAM_CORE_DATASET_PATH=/path/to/datasets
+   export SLAM_TRAIN_HYDRA_PATH=/path/for/hydra/runs
+   export SLAM_SHARED_CONFIG_PATH=/path/to/slam-core/config
    ```
    `output_dir` defaults to the hydra run directory.
 

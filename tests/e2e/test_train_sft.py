@@ -49,7 +49,7 @@ class TestTrainSftEndToEnd:
             "  Chunks: {data_chunks}\n",
             encoding="utf-8",
         )
-        monkeypatch.setenv("SLAM_SHARED_CONFIG", str(shared_root))
+        monkeypatch.setenv("SLAM_SHARED_CONFIG_PATH", str(shared_root))
 
         # 4. Compose the config, overriding everything to point at tmp_path.
         output_dir = tmp_path / "output"

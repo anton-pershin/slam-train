@@ -1,8 +1,7 @@
-project_path: /path/to/this/repo
-hydra_root: ${user_settings.project_path}/hydra
+hydra_root: ${oc.env:SLAM_TRAIN_HYDRA_PATH, /tmp/slam_train_hydra}
 hydra_dir: ${user_settings.hydra_root}/${now:%Y-%m-%d}/${now:%H-%M-%S}
 result_dir: ${user_settings.hydra_dir}
 output_dir: ${user_settings.result_dir}
 
-model_root: /path/to/models
-dataset_root: /path/to/datasets
+model_root: ${oc.env:SLAM_CORE_MODEL_PATH, null}
+dataset_root: ${oc.env:SLAM_CORE_DATASET_PATH, null}
